@@ -2,10 +2,12 @@ import { useState } from "react";
 import "./login.css";
 import { Link } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
+import { Container, Content, Title, Subtitle } from "./styles";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [ infoSuccessfully, setInfoSuccessfully ] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -23,6 +25,8 @@ const Login = () => {
         } else {
           console.error("Error");
         }
+
+        setInfoSuccessfully(true)
       })
 
       .catch((err) => {
@@ -31,15 +35,11 @@ const Login = () => {
   };
 
   return (
-    <div className="container1">
-      <div className="form-box1">
-        <div className="header-form1">
-          <h1 className="text-primary text-center1">
-            <span>X</span>-Form
-          </h1>
-          <p>Soluções em pesquisa</p>
-         <h2>Login</h2>
-        </div>
+    <Container>
+      <Content>
+        <Title>X <h3>-Form</h3></Title>
+        <Subtitle>Soluções em pesquisa</Subtitle>
+
         <div className="body-form1">
           <form>
             <div className="input-group1">
@@ -61,6 +61,7 @@ const Login = () => {
                 onChange={e => setPassword(e.target.value)}
               />
             </div>
+     
             <button
               onClick={handleSubmit}
               type="button"
@@ -68,17 +69,21 @@ const Login = () => {
             >
               Entrar
             </button>
-            <div className="message1">
-              <Link to="/forgot-password">Esqueci minha senha</Link>
-              <Link to="/register">Solicitar acesso</Link>
-            </div>
-            <Alert severity="success">
-  Here is a gentle confirmation that your action was successful.
-</Alert>
           </form>
+
+          <div className="message1">
+            <Link to="/forgot-password">Esqueci minha senha</Link>
+            <Link to="/register">Solicitar acesso</Link>
+          </div>
+          
+          { infoSuccessfully && 
+            <Alert severity="success">
+              Here is a gentle confirmation that your action was successful.
+            </Alert>
+          }
         </div>
-      </div>
-    </div>
+      </Content>
+    </Container>
   );
 };
 
